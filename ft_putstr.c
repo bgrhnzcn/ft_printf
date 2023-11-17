@@ -6,7 +6,7 @@
 /*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:25:03 by buozcan           #+#    #+#             */
-/*   Updated: 2023/10/28 22:28:50 by buozcan          ###   ########.fr       */
+/*   Updated: 2023/11/17 20:37:17 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	ft_putstr(const char *str)
 {
 	if (str == NULL)
 	{
-		write(1, "(null)", 6);
+		if (write(1, "(null)", 6) == -1)
+			return (-1);
 		return (6);
 	}
-	write(1, str, ft_strlen(str));
+	if (write(1, str, ft_strlen(str)) == -1)
+		return (-1);
 	return (ft_strlen(str));
 }

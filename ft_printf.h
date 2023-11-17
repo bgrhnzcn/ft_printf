@@ -6,7 +6,7 @@
 /*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 18:51:37 by buozcan           #+#    #+#             */
-/*   Updated: 2023/10/28 22:32:58 by buozcan          ###   ########.fr       */
+/*   Updated: 2023/11/17 22:00:59 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,15 @@
 # include <stdarg.h>
 # include <unistd.h>
 
+typedef struct s_printf
+{
+	int		len;
+	int		check;
+	va_list	arg;
+}	t_printf;
+
 int		ft_printf(const char *str, ...);
-void	ft_print_format(va_list arg, char c, int *len);
+int		ft_print_format(va_list arg, char c);
 int		ft_putchar(int c);
 int		ft_putstr(const char *str);
 int		ft_putnbr(long nb);

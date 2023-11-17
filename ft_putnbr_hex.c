@@ -6,7 +6,7 @@
 /*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 15:07:43 by buozcan           #+#    #+#             */
-/*   Updated: 2023/10/28 22:28:33 by buozcan          ###   ########.fr       */
+/*   Updated: 2023/11/17 21:54:40 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,33 @@ int	ft_puthex(unsigned char c, char is_lower)
 		c += 87;
 	else
 		c += 55;
-	write(1, &c, 1);
+	if (write(1, &c, 1) == -1)
+		return (-1);
 	return (1);
 }
 
 int	ft_putnbr_hex(unsigned int nb, char is_lower)
 {
 	static int	digit;
+	int			check;
 
 	digit = 0;
 	if (nb > 15)
 	{
-		ft_putnbr_hex(nb / 16, is_lower);
+		if (ft_putnbr_hex(nb / 16, is_lower) == -1)
+			return (-1);
 		nb = nb % 16;
-		digit += ft_puthex(nb, is_lower);
+		check = ft_puthex(nb, is_lower);
+		if (check == -1)
+			return (-1);
+		digit += check;
 	}
 	else
-		digit += ft_puthex(nb, is_lower);
+	{
+		check = ft_puthex(nb, is_lower);
+		if (check == -1)
+			return (-1);
+		digit += check;
+	}
 	return (digit);
 }
