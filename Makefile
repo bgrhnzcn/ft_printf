@@ -7,10 +7,7 @@ NAME = libftprintf.a
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
-
-%.o: %.c
-	$(CC) $(FLAGS) -c $?
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(OBJS)
 	ar -rcs $(NAME) $(OBJS)

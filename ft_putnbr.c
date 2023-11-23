@@ -3,61 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:36:22 by buozcan           #+#    #+#             */
-/*   Updated: 2023/11/19 00:56:55 by bgrhnzcn         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:06:36 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_shorter_char(int *digit, long nb)
+static void	*ft_bzero(void *s, size_t n)
 {
-	int	check;
+	size_t	i;
 
-	check = ft_putnbr(nb);
-	if (check == -1)
-		return (-1);
-	*digit += check;
-	return (0);
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = 0;
+		i++;
+	}
+	return (s);
 }
 
-static int	ft_shorter_num(int *digit, long nb)
+static void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	check;
+	void	*res;
+	size_t	buffsize;
 
-	check = ft_putnbr(nb / 10);
-	if (check == -1)
-		return (-1);
-	*digit += check;
-	return (0);
+	buffsize = nmemb * size;
+	res = malloc(buffsize);
+	if (res == NULL)
+		return (res);
+	ft_bzero(res, buffsize);
+	return (res);
+}
+
+int	ft_count_digit(long nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb < 0)
+	{
+		nb = -nb;
+		i++;
+	}
+	while (nb > 9)
+	{
+		nb /= 10;
+		i++;
+	}
+	i++;
+	return (i);
 }
 
 int	ft_putnbr(long nb)
 {
-	int	digit;
+	char	*str;
+	int		i;
+	int		res;
 
-	digit = 0;
+	i = ft_count_digit(nb);
+	str = ft_calloc(i + 1, sizeof(char));
+	if (str == NULL)
+		return (-1);
 	if (nb < 0)
 	{
-		if (ft_putchar('-') == -1)
-			return (-1);
-		digit += 1;
-		nb = -nb;
-		if (ft_shorter_char(&digit, nb))
-			return (-1);
+		str[0] = '-';
+		nb *= -1;
 	}
-	else if (nb > 9)
+	str[i] = 0;
+	while (i > 0)
 	{
-		if (ft_shorter_num(&digit, nb))
-			return (-1);
-		nb = nb % 10;
-		if (ft_shorter_char(&digit, nb))
-			return (-1);
+		if (str[i - 1] == '-')
+			break ;
+		str[i - 1] = (nb % 10) + 48;
+		nb /= 10;
+		i--;
 	}
-	else
-		if (ft_shorter_char(&digit, nb))
-			return (-1);
-	return (digit);
+	res = ft_putstr(str);
+	free(str);
+	return (res);
 }

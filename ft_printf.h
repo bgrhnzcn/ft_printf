@@ -6,7 +6,7 @@
 /*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 18:51:37 by buozcan           #+#    #+#             */
-/*   Updated: 2023/11/17 22:00:59 by buozcan          ###   ########.fr       */
+/*   Updated: 2023/11/22 14:52:28 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_printf
 {
